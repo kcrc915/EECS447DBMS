@@ -1,0 +1,91 @@
+Database Tables:
+-- Creating the Books table
+CREATE TABLE Books (
+    ISBN VARCHAR(20) PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    author VARCHAR(100) NOT NULL,
+    publisher VARCHAR(100) NOT NULL,
+    publication_date DATE,
+    genre VARCHAR(50),
+    quantity INT,
+    Branch_ID INT,
+    FOREIGN KEY (Branch_ID) REFERENCES Branches (Branch_ID)
+);
+
+-- Creating the Members table
+CREATE TABLE Members (
+    member_ID INT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    address VARCHAR(200),
+    email VARCHAR(100),
+    phone_number VARCHAR(20)
+);
+
+-- Creating the Borrowing History table
+CREATE TABLE Borrowing_History (
+    borrow_ID INT PRIMARY KEY,
+    member_ID INT,
+    book_ISBN VARCHAR(20),
+    borrow_date DATE,
+    due_date DATE,
+    return_date DATE,
+    FOREIGN KEY (member_ID) REFERENCES Members (member_ID),
+    FOREIGN KEY (book_ISBN) REFERENCES Books (ISBN)
+);
+
+-- Creating the Branches table
+CREATE TABLE Branches (
+    Branch_ID INT PRIMARY KEY,
+    Name VARCHAR(100) NOT NULL,
+    Address VARCHAR(200),
+    Phone_Number VARCHAR(20),
+    Email VARCHAR(100),
+    Librarian_in_charge VARCHAR(100)
+);
+
+Data Insertion:
+-- Inserting data into the Books table
+INSERT INTO Books (ISBN, title, author, publisher, publication_date, genre, quantity, Branch_ID)
+VALUES
+    ('978-0-553-21311-0', 'The Great Gatsby', 'F. Scott Fitzgerald', 'Scribner', '1925-04-10', 'Fiction', 5, 1),
+    ('978-0-307-70164-8', 'To Kill a Mockingbird', 'Harper Lee', 'Harper Perennial Modern Classics', '1960-07-11', 'Fiction', 3, 2),
+    ('978-0-14-303995-9', '1984', 'George Orwell', 'Penguin Books', '1949-06-08', 'Science Fiction', 7, 1),
+    ('978-0-06-112008-4', 'The Catcher in the Rye', 'J.D. Salinger', 'Little, Brown and Company', '1951-07-16', 'Fiction', 4, 3),
+	('978-0-393-04197-9', 'The Hobbit', 'J.R.R. Tolkien', 'Houghton Mifflin', '1937-09-21', 'Fantasy', 8, 2),
+    ('978-0-330-25864-8', 'Pride and Prejudice', 'Jane Austen', 'Penguin Classics', '1813-01-28', 'Romance', 6, 1),
+    ('978-0-439-02348-1', 'Harry Potter and the Sorcerer''s Stone', 'J.K. Rowling', 'Scholastic', '1997-06-26', 'Fantasy', 10, 3),
+    ('978-0-446-36074-0', 'The Da Vinci Code', 'Dan Brown', 'Anchor', '2003-03-18', 'Thriller', 4, 2),
+    ('978-0-8129-7802-4', 'The Lord of the Rings', 'J.R.R. Tolkien', 'Mariner Books', '1954-07-29', 'Fantasy', 12, 1);
+
+
+-- Inserting data into the Members table
+INSERT INTO Members (member_ID, name, address, email, phone_number)
+VALUES
+    (1, 'John Smith', '123 Main Street', 'johnsmith@example.com', '123-456-7890'),
+    (2, 'Jane Doe', '456 Elm Street', 'janedoe@example.com', '987-654-3210'),
+    (3, 'David Johnson', '789 Oak Avenue', 'davidjohnson@example.com', '555-123-4567'),
+	(4, 'Sarah Johnson', '789 Pine Street', 'sarahjohnson@example.com', '555-987-6543'),
+    (5, 'Michael Wilson', '123 Elm Avenue', 'michaelwilson@example.com', '123-456-7890'),
+    (6, 'Emily Davis', '456 Oak Drive', 'emilydavis@example.com', '987-654-3210'),
+    (7, 'Robert Smith', '789 Main Road', 'robertsmith@example.com', '555-123-4567'),
+    (8, 'Jessica Brown', '456 Maple Lane', 'jessicabrown@example.com', '123-456-7890');
+
+-- Inserting data into the Borrowing History table
+INSERT INTO Borrowing_History (borrow_ID, member_ID, book_ISBN, borrow_date, due_date, return_date)
+VALUES
+    (1, 1, '978-0-553-21311-0', '2023-04-10', '2023-04-24', '2023-04-23'),
+    (2, 2, '978-0-307-70164-8', '2023-04-12', '2023-04-26', NULL),
+    (3, 3, '978-0-14-303995-9', '2023-04-15', '2023-04-29', NULL),
+	(4, 4, '978-0-393-04197-9', '2023-04-20', '2023-05-04', NULL),
+    (5, 5, '978-0-330-25864-8', '2023-04-22', '2023-05-06', NULL),
+    (6, 6, '978-0-439-02348-1', '2023-04-24', '2023-05-08', NULL),
+    (7, 7, '978-0-446-36074-0', '2023-04-26', '2023-05-10', NULL),
+    (8, 8, '978-0-8129-7802-4', '2023-04-28', '2023-05-12', NULL);
+
+-- Inserting data into the Branches table
+INSERT INTO Branches (Branch_ID, Name, Address, Phone_Number, Email, Librarian_in_charge)
+VALUES
+    (1, 'Main Library', '789 Oak Avenue', '555-123-4567', 'library@example.com', 'Emily Johnson'),
+    (2, 'West Branch', '456 Elm Street', '987-654-3210', 'westbranch@example.com', 'Michael Davis'),
+    (3, 'East Branch', '123 Main Street', '123-456-7890', 'eastbranch@example.com', 'Sarah Wilson'),
+	(4, 'North Branch', '789 Oak Street', '555-123-4567', 'northbranch@example.com', 'Steve Waugh');
